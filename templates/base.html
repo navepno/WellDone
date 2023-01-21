@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>WellDone</title>
+    <!-- CSS CUSTOM -->
+    {% load static %}
+    <link rel="stylesheet" href="{% static '/css/styles.css' %}">
+    <!-- CSS only -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+    <script src="https://kit.fontawesome.com/e98b22eaf6.js" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.3/jquery.min.js" integrity="sha512-STof4xm1wgkfm7heWqFJVn58Hm3EtS31XFaagaa8VMReCXAkQnJZ+jEy8PCC/iT18dFy95WcExNHFTqLyp72eQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+</head>
+<body class="">
+
+
+
+
+
+    <nav class="navbar navbar-expand-lg navbar-dark ms-4">
+<!--        <div class="nav-item">-->
+            {% if request.user.is_active %}
+                <div class="nav-item">
+                    <a type="button" class="text-decoration-none link-dark" href="{% url 'logout' %}"><i class="fa-solid fa-arrow-right-from-bracket"></i></a>
+                </div>
+                <div class="nav-item ms-2">
+                    <a href="#" class="text-decoration-none link-dark">{{ request.user.username }}</a>
+                </div>
+            {% else %}
+                <div class="nav-item">
+                    <a type="" class="text-decoration-none link-dark" href="{% url 'login' %}"><i class="fa-solid fa-arrow-right-to-bracket"></i></a>
+                </div>
+                <div class="nav-item ms-2">
+                    <a type="" class="text-decoration-none link-dark" href="{% url 'register' %}">register</a>
+                </div>
+            {% endif %}
+<!--        </div>-->
+    </nav>
+
+
+
+
+
+    {% block content %}
+
+    {% endblock %}
+
+
+
+
+<!--        <div class="page">-->
+<!--            &lt;!&ndash;Card&ndash;&gt;-->
+<!--            <div class="card">-->
+<!--                &lt;!&ndash;Card Header&ndash;&gt;-->
+<!--                <div class="card-header">-->
+<!--                    <p> <i class="fa fa-bars"></i> <i class="fa fa-calendar ml-4" aria-hidden="true"></i> <i class="fa fa-star ml-4" aria-hidden="true"></i> <span class="float-right"> <span class="mr-4 navTask">Task</span> <span class="mr-4">Archive</span> <i class="fa fa-search" aria-hidden="true"></i> </span> </p>-->
+<!--                </div>-->
+<!--                &lt;!&ndash;Card Body&ndash;&gt;-->
+<!--                <div class="card-body">-->
+<!--                    <p class="heading1"> <span class="today">Today</span> <span class="float-right headingright">7h 15min</span> </p>-->
+<!--                    <p> <i class="fa fa-calendar mr-2" aria-hidden="true"></i> <span class="task mt-4">Take kids to school</span> <span class="time ml-2">8:00-8:30AM</span> <span class="float-right">30min</span> </p>-->
+<!--                    <p><i class="	fa fa-circle-thin mr-2"></i> <span class="task">Process email</span> <i class="fa fa-thumb-tack ml-2" aria-hidden="true"></i> <span class="time ml-2">8:00-9:30AM</span><span class="float-right">1h</span> </p>-->
+<!--                    <p><i class="fa fa-calendar mr-2" aria-hidden="true"></i> <span class="task">Daily Stand-Up meeting</span> <span class="time ml-2">9:00-10:00AM</span> <span class="float-right">30min</span> </p>-->
+<!--                    <p><i class="	fa fa-circle-thin mr-2"></i><span class="task">Create new templates</span> <i class="fa fa-thumb-tack ml-2" aria-hidden="true"></i> <i class="fa fa-user ml-2"></i> <span class="time ml-2">10:00-11:45AM</span> <span class="float-right">1h 45min</span> </p>-->
+<!--                    <p><i class="fa fa-calendar mr-2" aria-hidden="true"></i> <span class="task">Lunch with Anna</span> <span class="time ml-2">12:00-12:30PM</span> <span class="float-right">30min</span> </p>-->
+<!--                    <p class="text-muted"><i class="fa fa-plus mr-1" aria-hidden="true"></i> Add Task for Today</p>-->
+<!--                    <p class="heading2"><span class="tomorrow">Tomorrow</span> <span class="float-right headingright">6h 30min</span> </p>-->
+<!--                    <p class="task2 mt-4"><i class="fa fa-calendar mr-2" aria-hidden="true"></i> <span class="task">Breakfast with the Marketing team</span> <span class="time ml-2">8:00-8:30AM</span> <span class="float-right">30min</span></p>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+</body>
+</html>

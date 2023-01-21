@@ -1,0 +1,113 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+
+{% block content %}
+        <container class="">
+            <form method="post" class="container w-75 text-center mx-auto mt-5">
+                 {% csrf_token %}
+                <div class="row">
+                    <input type="text" class="task-input list-group-item col-10 border-bottom " placeholder="What do you need to do today?" name="task">
+<!--                    <input type="datetime-local" class="col" placeholder="End`s at" name="end_time">-->
+<!--                    <input type="datetime-local" class="col" placeholder="Start`s at" name="start_time">-->
+                    <div class="col dropleft">
+                        <button type="button" class="add btn btn-link-dark text-decoration-none font-weight-bold todo-list-add-btn" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="fa-solid fa-calendar-days"></i>
+                        </button>
+
+                         <ul class="dropdown-menu ">
+                            <li>
+                                <div class="text-center">Start time</div>
+                                <input type="datetime-local" class="col" placeholder="Start`s at" name="start_time">
+                            </li>
+                            <li>
+                                <div class="text-center fs-6">End time</div>
+                                <input type="datetime-local" class="col" placeholder="End`s at" name="end_time">
+                            </li>
+
+                        </ul>
+                    </div>
+
+<!--                        <div class="dropdown-menu w-100">-->
+<!--                            <h5 class="text-center fs-6">Start time time time time time time</h5>-->
+<!--                            <h5 class="text-center fs-6">End time</h5>-->
+
+<!--                        </div>-->
+
+
+
+                    <button type="submit" class="add btn btn-link-dark text-decoration-none font-weight-bold todo-list-add-btn col">Add</button>
+                </div>
+
+            </form>
+
+            <div class="container w-75 mt-4">
+                <h4>Tasks</h4>
+                {% for task in tasks %}
+                    <p>
+                        <input type="checkbox" class="checkbox-round" />
+<!--                        <input class="form-check-input mt-0 align-middle" type="radio" value="" aria-label="Checkbox for following text input">-->
+                        <span class="task">{{ task.task }}</span>
+                        {% if task.start_time and task.end_time %}
+                        <span class="time ml-2">{{ task.start_time }}-{{ task.end_time }}</span>
+                        <span class="float-right">{{ task.start_time|timesince:task.end_time }}</span>
+                        {% elif task.start_time %}
+                        <span class="time ml-2">start: {{ task.start_time }}</span>
+                        {% elif task.end_time %}
+                        <span class="time ml-2">deadline: {{ task.end_time }}</span>
+                        {% else %}
+                        <span class="time ml-2">no deadline</span>
+                        {% endif %}
+                        <div class="container float-end text-decoration-none time ml-2">
+                            <a class="float-end text-decoration-none time ml-2 col" href="{% url 'solve-task' task.id %}">edit</a>
+                            <a class="float-end text-decoration-none time ml-2 col" href="{% url 'solve-task' task.id %}">solved</a>
+                        </div>
+
+                    </p>
+                {% endfor %}
+
+            </div>
+
+            <div class="container w-75 mt-4">
+                <h4>Solved Tasks</h4>
+                {% if solved_tasks %}
+                {% for task in solved_tasks %}
+                    <p>
+                        <input type="checkbox" class="checkbox-round" />
+<!--                        <input class="form-check-input mt-0 align-middle" type="radio" value="" aria-label="Checkbox for following text input">-->
+                        <span class="task text-decoration-line-through">{{ task.task }}</span>
+                        {% if task.start_time and task.end_time %}
+                        <span class="time ml-2">{{ task.start_time }}-{{ task.end_time }}</span>
+
+                        {% elif task.start_time %}
+                        <span class="time ml-2">start: {{ task.start_time }}</span>
+                        {% elif task.end_time %}
+                        <span class="time ml-2">deadline: {{ task.end_time }}</span>
+                        {% else %}
+                        <span class="time ml-2">no deadline</span>
+                        {% endif %}
+                        <a class="float-end text-decoration-none time ml-2" href="{% url 'unsolve-task' task.id %}">unsolved</a>
+                    </p>
+                {% endfor %}
+                {% endif %}
+
+            </div>
+
+
+<!--            <div class="card-body">-->
+<!--            <p class="heading1"> <span class="today">Today</span> <span class="float-right headingright">7h 15min</span> </p>-->
+<!--            <p> <i class="fa fa-calendar mr-2" aria-hidden="true"></i> <span class="task mt-4">Take kids to school</span> <span class="time ml-2">8:00-8:30AM</span> <span class="float-right">30min</span> </p>-->
+<!--            <p><i class="	fa fa-circle-thin mr-2"></i> <span class="task">Process email</span> <i class="fa fa-thumb-tack ml-2" aria-hidden="true"></i> <span class="time ml-2">8:00-9:30AM</span><span class="float-right">1h</span> </p>-->
+<!--            <p><i class="fa fa-calendar mr-2" aria-hidden="true"></i> <span class="task">Daily Stand-Up meeting</span> <span class="time ml-2">9:00-10:00AM</span> <span class="float-right">30min</span> </p>-->
+<!--            <p><i class="	fa fa-circle-thin mr-2"></i><span class="task">Create new templates</span> <i class="fa fa-thumb-tack ml-2" aria-hidden="true"></i> <i class="fa fa-user ml-2"></i> <span class="time ml-2">10:00-11:45AM</span> <span class="float-right">1h 45min</span> </p>-->
+<!--            <p><i class="fa fa-calendar mr-2" aria-hidden="true"></i> <span class="task">Lunch with Anna</span> <span class="time ml-2">12:00-12:30PM</span> <span class="float-right">30min</span> </p>-->
+<!--            <p class="text-muted"><i class="fa fa-plus mr-1" aria-hidden="true"></i> Add Task for Today</p>-->
+<!--            <p class="heading2"><span class="tomorrow">Tomorrow</span> <span class="float-right headingright">6h 30min</span> </p>-->
+<!--            <p class="task2 mt-4"><i class="fa fa-calendar mr-2" aria-hidden="true"></i> <span class="task">Breakfast with the Marketing team</span> <span class="time ml-2">8:00-8:30AM</span> <span class="float-right">30min</span></p>-->
+<!--            </div>-->
+
+
+        </container>
+
+
+{% endblock %}

@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+
+{% block content %}
+    <div class="container w-75 mt-4">
+        <div class="container">
+            <div class="row">
+                <h4 class="col"><span class="time">Task </span>{{ task.task }}</h4>
+                <a href="{% url 'home' %}" class="text-decoration-none link-dark text-end col me-3"><i class="fa-solid fa-house"></i></a>
+            </div>
+            <br><br>
+        </div>
+        <form method="post" class="container w-75 text-center mx-auto mt-5">
+            {% csrf_token %}
+            {{ edit_form|crispy }}
+            <button type="submit" class="add btn btn-link-dark text-decoration-none font-weight-bold todo-list-add-btn col">Edit</button>
+        </form>
+    </div>
+{% endblock %}
