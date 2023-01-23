@@ -148,3 +148,35 @@ body{
 }
 
 
+.task-input-2:focus {
+    border: 0;
+}
+.task-input-2 {
+    width: 100%;
+/*    padding: 12px 20px;*/
+/*    margin: 8px 0;*/
+    box-sizing: border-box;
+/*    border: 3px solid #ccc;*/
+    border: 0;
+    -webkit-transition: 0.5s;
+    transition: 0.5s;
+    outline: none;
+}
+
+.content-input-2:focus {
+    border: 0;
+}
+
+.content-input-2 {
+    width: 100%;
+/*    padding: 12px 20px;*/
+/*    margin: 8px 0;*/
+    box-sizing: border-box;
+/*    border: 3px solid #ccc;*/
+    border: 0;
+    -webkit-transition: 0.5s;
+    transition: 0.5s;
+    outline: none;
+}
+
+

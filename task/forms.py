@@ -26,7 +26,14 @@ class TaskForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.helper = FormHelper(self)
+        self.fields['task'].widget.attrs.update({'class': 'task-input-2',
+                                                 'placeholder': 'What do you need to do today?',
+                                                 })
+        self.fields['content'].widget.attrs.update({'class': 'content-input-2',
+                                                    'placeholder': 'You can add additional information here',
+                                                 })
+        # self.helper = FormHelper(self)
+
 
 
 class EditTask(forms.Form):

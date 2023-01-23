@@ -5,20 +5,20 @@
 {% block content %}
     <div class="container w-75 mt-4">
 
-        <form method="post" class="">
             {% csrf_token %}
             <div class="container">
                 <div class="row">
-                    <h4 class="col"><span class="time">Task </span>{{ edit_form.task }}</h4>
+                    <h4 class="col"><span class="time">Task </span>{{ task.task }}</h4>
                     <a href="{% url 'home' %}" class="text-decoration-none link-dark text-end col me-3"><i class="fa-solid fa-house"></i></a>
                 </div>
             </div>
             <br><br>
             <div class="container">
-                {{ edit_form.content }}
+                {% if task.content != "" %}
+                    {{ task.content | linebreaks }}
+                {% else %}
+                    <span class="time">No content </span>
+                {% endif %}
             </div>
-            <br><br>
-            <button type="submit" class="add btn btn-link-dark text-decoration-none font-weight-bold todo-list-add-btn col w-100 text-end">Save</button>
-        </form>
     </div>
 {% endblock %}

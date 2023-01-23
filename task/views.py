@@ -47,6 +47,17 @@ def TaskListView(request):
         return render(request, 'task/task-list-test.html', context=context)
 
 
+def TaskDetailView(request, id):
+    if request.user.is_authenticated:
+        task = get_object_or_404(Task, id=id)
+        context = {
+            'task': task
+        }
+        return render(request, 'task/task-detail.html', context=context)
+    else:
+        return redirect('/')
+
+
 def DeleteTask(request, id):
     if request.user.is_authenticated:
         task = get_object_or_404(Task, id=id)
