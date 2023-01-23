@@ -119,67 +119,10 @@ def SolveTaskListView(request):
     }
     return render(request, 'task/solved-tasks-list.html', context=context)
 
-# def LogIn(request):
-#     if request.method == 'POST':
-#         username = request.POST['username']
-#         password = request.POST['password']
-#         user = authenticate(request, username=username, password=password)
-#         if user is not None:
-#             login(request, user)
-#         else:
-#             print('ERROORRRRRRR')
-#         return redirect('/')
-#     else:
-#         print('kek')
-#         return render(request, 'login.html')
-#
-#
+
 def LogOut(request):
     logout(request)
     return redirect('/')
-
-
-
-
-
-# def post_detail(request, slug):
-#     post = get_object_or_404(Post, slug=slug)
-#     if request.user.is_active:
-#         if request.method == "POST":
-#             comment_form = CommentForm(request.POST)
-#
-#             if comment_form.is_valid():
-#                 comment = comment_form.save(commit=False)
-#                 comment.content_object = post
-#                 comment.creator = request.user
-#                 comment.save()
-#                 logger.info("Created comment on Post %d for user %s", post.pk, request.user)
-#                 return redirect(request.path_info)
-#         else:
-#             comment_form = CommentForm()
-#     else:
-#         comment_form = None
-#     return render(request, "blog/post-detail.html", {"post": post, "comment_form": comment_form})
-
-
-
-def LogIn(request):
-    if request.method == 'POST':
-        login_form = AuthenticationForm(request, data=request.POST)
-        if login_form.is_valid():
-            username = login_form.data.get('username')
-            password = login_form.data.get('password')
-            user = authenticate(request, username=username, password=password)
-            if user is not None:
-                login(request, user)
-                messages.info(request, message='Done')
-                return redirect('/')
-            else:
-                messages.error(request, 'Invalid username or password')
-        else:
-            messages.error(request, 'Invalid username or password')
-    login_form = AuthenticationForm()
-    return render(request, 'login.html', context={'login_form': login_form})
 
 
 def Registration(request):
@@ -194,3 +137,34 @@ def Registration(request):
             messages.error(request, 'Something gone wrong')
     registration_form = RegistrationForm()
     return render(request, 'registration.html', context={'registration_form': registration_form})
+
+
+def LoginView(request):
+    message = ''
+    if request.method == 'POST':
+        login_form = UserLoginForm(request, data=request.POST)
+        if login_form.is_valid():
+            username = login_form.data.get('username')
+            password = login_form.data.get('password')
+            user = authenticate(request, username=username, password=password)
+            if user is not None:
+                login(request, user)
+                messages.info(request, message='Done')
+                return redirect('/')
+            else:
+                message = 'Invalid username or password'
+                messages.error(request, 'Invalid username or password')
+        else:
+            message = 'Invalid username or password'
+            messages.error(request, 'Invalid username or password')
+    login_form = UserLoginForm()
+
+    return render(request, 'login.html', context={'login_form': login_form, 'error_message': message})
+
+
+def UserDetailView(request, id):
+    tasks = Task.objects.filter(creator=request.user)
+    context = {
+        'tasks': tasks,
+    }
+    return render(request, 'task/user-detail.html', context=context)

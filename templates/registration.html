@@ -4,14 +4,50 @@
 
 {% block content %}
 
-<form method="POST" class="w-50 text-center mx-auto">
-    {% csrf_token %}
-    {{ registration_form|crispy }}
+<div class="container position-absolute top-50 start-50 translate-middle">
+    <form method="POST" class="w-25 text-center mx-auto">
+        {% csrf_token %}
 
-    <p>
-        <button type="submit" class="btn btn-primary">
-            Create
-        </button>
-    </p>
-</form>
+        <div class="container">
+
+            <div class="row">
+                <div class="col text-end">
+<!--                    <span class="time">username</span>-->
+                    username
+                </div>
+                <div class="col">
+                   {{ registration_form.username }}
+                </div>
+            </div>
+            <br>
+            <div class="row">
+                <div class="col text-end">
+<!--                    <span class="time">password</span>-->
+                    password
+                </div>
+                <div class="col">
+                   {{ registration_form.password1 }}
+                </div>
+            </div>
+            <br>
+            <div class="row">
+                <div class="col text-end">
+                    <span class="time">confirm</span>
+                    password
+                </div>
+                <div class="col">
+                   {{ registration_form.password2 }}
+                </div>
+            </div>
+        </div>
+        <br>
+
+        <p>
+            <button type="submit" class="add btn btn-link-dark text-decoration-none font-weight-bold todo-list-add-btn float-end">
+                Register
+<!--                <span class="time">Log In</span>-->
+            </button>
+        </p>
+    </form>
+</div>
 {% endblock %}

@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+
+{% block content %}
+    <div class="container w-75 mt-4">
+
+            {% csrf_token %}
+            <div class="container">
+                <div class="row">
+                    <h4 class="col"><span class="time">User </span>{{ request.user.username }}</h4>
+                    <a href="{% url 'home' %}" class="text-decoration-none link-dark text-end col me-3"><i class="fa-solid fa-house"></i></a>
+                </div>
+            </div>
+            <br><br>
+            <div class="container">
+                {{ tasks|length }}
+            </div>
+    </div>
+{% endblock %}

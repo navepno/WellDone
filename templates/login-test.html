@@ -1,0 +1,18 @@
+<form method="post">
+    {% csrf_token %}
+    {{ login_form.non_field_errors }}
+    <div class="form-group">
+
+        <label for="{{ login_form.username.id_for_label }}">Username:</label>
+        {{ login_form.username }}
+        {{ login_form.username.errors }}
+
+    </div>
+    <div class="form-group">
+
+        <label for="{{ login_form.password.id_for_label }}">Password:</label>
+        {{ login_form.password }}
+        {{ login_form.password.errors }}
+    </div>
+    <button type="submit">Login</button>
+</form>

@@ -26,7 +26,11 @@
                     <a type="button" class="text-decoration-none link-dark" href="{% url 'logout' %}"><i class="fa-solid fa-arrow-right-from-bracket"></i></a>
                 </div>
                 <div class="nav-item ms-2">
-                    <a href="#" class="text-decoration-none link-dark">{{ request.user.username }}</a>
+                    {% if request.user.username %}
+                        <a href="{% url 'user-detail' request.user.id %}" class="text-decoration-none link-dark">{{ request.user.username }}</a>
+                    {% else %}
+                        <a href="#" class="text-decoration-none link-dark">{{ request.user.username }}</a>
+                    {% endif %}
                 </div>
             {% else %}
                 <div class="nav-item">

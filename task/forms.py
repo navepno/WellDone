@@ -1,7 +1,7 @@
 from datetime import date
 
 from django import forms
-from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.forms import UserCreationForm, AuthenticationForm, UsernameField
 from django.contrib.auth.models import User
 
 from task.models import Task
@@ -35,21 +35,51 @@ class TaskForm(forms.ModelForm):
         # self.helper = FormHelper(self)
 
 
-
-class EditTask(forms.Form):
-    pass
-
-
 class RegistrationForm(UserCreationForm):
-    email = forms.EmailField(required=True)
+    # email = forms.EmailField(required=False)
 
     class Meta:
         model = User
-        fields = ("username", "email", "password1", "password2")
+        fields = ["username", "password1", "password2"]
+
+    username = UsernameField(widget=forms.TextInput(
+        attrs={
+            'class': 'task-input-2 border-bottom',
+            'placeholder': '••••••',
+        }))
+
+    password1 = forms.CharField(widget=forms.PasswordInput(
+        attrs={
+            'class': 'task-input-2 border-bottom',
+            'placeholder': '••••••',
+        }))
+
+    password2 = forms.CharField(widget=forms.PasswordInput(
+        attrs={
+            'class': 'task-input-2 border-bottom',
+            'placeholder': '••••••',
+        }))
 
     def save(self, commit=True):
         user = super(RegistrationForm, self).save(commit=False)
-        user.email = self.cleaned_data['email']
+        # user.email = self.cleaned_data['email']
         if commit:
             user.save()
         return user
+
+
+class UserLoginForm(AuthenticationForm):
+    def __init__(self, *args, **kwargs):
+        super(UserLoginForm, self).__init__(*args, **kwargs)
+
+    username = UsernameField(widget=forms.TextInput(
+        attrs={
+            'class': 'task-input-2 border-bottom',
+            'placeholder': '••••••',
+        }))
+
+    password = forms.CharField(widget=forms.PasswordInput(
+        attrs={
+            'class': 'task-input-2 border-bottom',
+            'placeholder': '••••••',
+        }))

@@ -15,7 +15,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from task import views
+from task import views, forms
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -23,11 +23,12 @@ urlpatterns = [
     path('task/<int:id>', views.TaskDetailView, name='task-detail'),
     path('delete/<int:id>', views.DeleteTask, name='delete-task'),
     path('logout/', views.LogOut, name='logout'),
-    path('login/', views.LogIn, name='login'),
+    path('login/', views.LoginView, name='login'),
     path('register/', views.Registration, name='register'),
     path('solve/<int:id>', views.SolveTask, name='solve-task'),
     path('unsolve/<int:id>', views.UnsolveTask, name='unsolve-task'),
     path('solved-tasks/', views.SolveTaskListView, name='solved-tasks-list'),
     path('edit/<int:id>', views.EditTaskView, name='edit-task'),
+    path('user/<int:id>', views.UserDetailView, name='user-detail'),
 
 ]
