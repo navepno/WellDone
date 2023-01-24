@@ -5,7 +5,7 @@ WellDone is a simple todo website based on Django.
 What it look's like:
 ![welldone.gif](welldone.gif)
 
-##Setup
+## Setup
 
 ```
 
