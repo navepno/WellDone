@@ -163,8 +163,11 @@ def LoginView(request):
 
 
 def UserDetailView(request, id):
-    tasks = Task.objects.filter(creator=request.user)
-    context = {
-        'tasks': tasks,
-    }
-    return render(request, 'task/user-detail.html', context=context)
+    if request.user.is_authenticated:
+        tasks = Task.objects.filter(creator=request.user)
+        context = {
+            'tasks': tasks,
+        }
+        return render(request, 'task/user-detail.html', context=context)
+    else:
+        return redirect('login')
